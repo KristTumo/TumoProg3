@@ -1,4 +1,4 @@
-class Grass {
+class LivingCreature {
     constructor(x, y) {
         this.x = x
         this.y = y
@@ -14,8 +14,6 @@ class Grass {
             [this.x + 1, this.y + 1]
         ];
 
-        matrix[y][x] = 1
-        grassArr.push(this)
     }
 
     chooseCell(n) {
@@ -36,6 +34,16 @@ class Grass {
         return found
 
     }
+}
+
+
+class Grass extends LivingCreature {
+constructor(x,y) {
+    super(x,y)
+    
+    matrix[y][x] = 1
+    grassArr.push(this)
+}
 
     mul() {
 
@@ -54,16 +62,11 @@ class Grass {
 }
 
 
-class GrassEater {
+class GrassEater extends LivingCreature {
     constructor(x, y) {
-        this.x = x
-        this.y = y
+        super(x,y)
         this.energy = 9
-        this.directions = [];
-
         matrix[y][x] = 2
-        console.log(111111);
-
         grassEaterArr.push(this)
     }
 
@@ -83,22 +86,7 @@ class GrassEater {
 
     chooseCell(n) {
         this.updateDirection()
-        let found = []
-
-        for (let i in this.directions) {
-
-            let x = this.directions[i][0]
-            let y = this.directions[i][1]
-
-            if (x >= 0 && y >= 0 && x < matrix.length && y < matrix.length) {
-                if (matrix[y][x] == n) {
-                    found.push(this.directions[i])
-                }
-            }
-
-        }
-        return found
-
+        return super.chooseCell(n)
     }
     start() {
         if (this.chooseCell(1).length > 0) {
@@ -176,12 +164,10 @@ class GrassEater {
     }
 
 }
-class Gishatich {
+class Gishatich extends LivingCreature {
     constructor(x, y) {
-        this.x = x
-        this.y = y
+        super(x,y)
         this.energy = 10
-        this.directions = [];
 
         matrix[y][x] = 3
         console.log(111111);
@@ -203,22 +189,7 @@ class Gishatich {
 
     chooseCell(n) {
         this.updateDirection()
-        let found = []
-
-        for (let i in this.directions) {
-
-            let x = this.directions[i][0]
-            let y = this.directions[i][1]
-
-            if (x >= 0 && y >= 0 && x < matrix.length && y < matrix.length) {
-                if (matrix[y][x] == n) {
-                    found.push(this.directions[i])
-                }
-            }
-
-        }
-        return found
-
+        return super.chooseCell(n)
     }
     start() {
         if (this.chooseCell(2).length > 0) {
@@ -315,21 +286,9 @@ class Gishatich {
     }
 
 }
-class Pos {
+class Pos extends LivingCreature{
     constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1],
-
-        ];
+      super(x,y)
         for(let i in this.directions) {
             let x = this.directions[i][0]
             let y = this.directions[i][1]
@@ -341,43 +300,12 @@ class Pos {
     }
 
 }
-class Flower {
+class Flower extends LivingCreature{
     constructor(x, y) {
-        this.x = x
-        this.y = y
-        this.multyplay = 0
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
+      super(x,y)
 
         matrix[y][x] = 5
         flowerArr.push(this)
-    }
-
-    chooseCell(n) {
-        let found = []
-
-        for (let i in this.directions) {
-
-            let x = this.directions[i][0]
-            let y = this.directions[i][1]
-
-            if (x >= 0 && y >= 0 && x < matrix.length && y < matrix.length) {
-                if (matrix[y][x] == n) {
-                    found.push(this.directions[i])
-                }
-            }
-
-        }
-        return found
-
     }
 
     mul() {
